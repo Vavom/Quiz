@@ -1,5 +1,6 @@
 import { Alert,TextField,FormLabel,Button } from "@mui/material";
 import * as React from "react";
+import Scoreboard from "./Scoreboard";
 
 type props = {
   correctAnswers: Array<string | null>;
@@ -21,6 +22,8 @@ export default function Score({ correctAnswers, dataAnswers }: props) {
 
   const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUsername(event.target.value);
+    setIsAcceptableUsername(true)
+    setHelperText("")
   }
   const handleSubmit = () =>{
     if (username.length == 0){
@@ -41,27 +44,66 @@ export default function Score({ correctAnswers, dataAnswers }: props) {
     // function to load highscores page goes here
   }
 
+  //calculating percentage
+  function percentage(partialValue: number, totalValue: number) {
+    return (100 * partialValue) / totalValue;
+  }
 
-  return (
-    <div>
-    <Alert severity="error">
-      {score} / {correctAnswers.length}
-    </Alert>
-    <FormLabel component="legend">Would you like to submit your score?</FormLabel>
-    <TextField
-      id="username"
-      label="Name"
-      value={username}
-      onChange={handleUsernameChange}
-      error={!isAcceptableUsername}
-      helperText={helperText}
-    />
-    <Button
-        sx={{ mt: 1, mr: 1 }}
-        onClick={handleSubmit}
-        variant="outlined"
-      >Submit</Button>
+  const totalQuestions = correctAnswers.length;
+  const correctAns = score;
+  const passPercentage = 65;
 
-  </div>
-  );
+  console.log(percentage(correctAns, totalQuestions));
+
+
+  if (percentage(correctAns, totalQuestions) >= passPercentage) {
+    return (
+      <>
+        <Alert severity="success">
+          {score} / {correctAnswers.length} Percentage ={" "}
+          {Math.round(percentage(correctAns, totalQuestions))}% Pass
+        </Alert>
+        <Scoreboard />
+        <FormLabel component="legend">Would you like to submit your score?</FormLabel>
+        <TextField
+          id="username"
+          label="Name"
+          value={username}
+          onChange={handleUsernameChange}
+          error={!isAcceptableUsername}
+          helperText={helperText}
+        />
+        <Button
+            sx={{ mt: 1, mr: 1 }}
+            onClick={handleSubmit}
+            variant="outlined"
+          >Submit</Button>
+      </>
+    );
+  } else {
+    return (
+      <>
+        <Alert severity="error">
+          {score} / {correctAnswers.length} Percentage ={" "}
+          {Math.round(percentage(correctAns, totalQuestions))}% Better Luck Next
+          Time
+        </Alert>
+        <Scoreboard />
+        <FormLabel component="legend">Would you like to submit your score?</FormLabel>
+        <TextField
+          id="username"
+          label="Name"
+          value={username}
+          onChange={handleUsernameChange}
+          error={!isAcceptableUsername}
+          helperText={helperText}
+        />
+        <Button
+            sx={{ mt: 1, mr: 1 }}
+            onClick={handleSubmit}
+            variant="outlined"
+          >Submit</Button>
+      </>
+    );
+  }
 }
