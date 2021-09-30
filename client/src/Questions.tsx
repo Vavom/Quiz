@@ -6,6 +6,11 @@ import {
   FormLabel,
   Radio,
   RadioGroup,
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Box,
 } from "@mui/material";
 import * as React from "react";
 import ReactDOM from "react-dom";
@@ -32,32 +37,36 @@ export default function Questions({
   }
 
   return (
-    <>
-      <Question
-        questionData={dataQuestions.questions[counter]}
-        correctAnswers={correctAnswers}
-        counter={counter}
-      />
-      {counter > 0 ? (
+    <Card sx={{ maxWidth: "37%", borderRadius: '16px', left: '32%', top: "20%", right: "32%", bottom: "20%", position: 'absolute'}}>
+      <Box>
+        <Question
+          questionData={dataQuestions.questions[counter]}
+          correctAnswers={correctAnswers}
+          counter={counter}
+        />
+      </Box>
+      <Box>
+        {counter > 0 ? (
+          <Button
+            sx={{ mt: 1, mr: 1 }}
+            onClick={() => {
+              setCounter(counter - 1);
+            }}
+            variant="outlined"
+          >
+            Previous Question
+          </Button>
+        ) : null}
         <Button
           sx={{ mt: 1, mr: 1 }}
           onClick={() => {
-            setCounter(counter - 1);
+            setCounter(counter + 1);
           }}
           variant="outlined"
         >
-          Previous Question
+          {isLastQuestion ? "Finish" : "Next Question"}
         </Button>
-      ) : null}
-      <Button
-        sx={{ mt: 1, mr: 1 }}
-        onClick={() => {
-          setCounter(counter + 1);
-        }}
-        variant="outlined"
-      >
-        {isLastQuestion ? "Finish" : "Next Question"}
-      </Button>
-    </>
+      </Box>
+    </Card>
   );
 }
