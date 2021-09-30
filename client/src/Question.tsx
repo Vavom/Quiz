@@ -6,6 +6,7 @@ import {
   FormLabel,
   Radio,
   RadioGroup,
+  Box,
 } from "@mui/material";
 import * as React from "react";
 
@@ -66,7 +67,7 @@ export default function Questions({
         error={error}
         variant="standard"
       >
-        <FormLabel component="legend">{questionData.question}</FormLabel>
+          <FormLabel component="legend">{questionData.question}</FormLabel>
         <RadioGroup
           aria-label="quiz"
           name="quiz"
