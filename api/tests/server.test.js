@@ -62,6 +62,7 @@ describe("tessting the API ", () => {
         }
         const getResponse = await request(app).get("/scores");
         const scoresArr = JSON.parse(getResponse.text).scores
+        console.log(scoresArr)
         expect(scoresArr[scoresArr.length -1].score).toEqual(51);
     })
 
