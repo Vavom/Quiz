@@ -11,6 +11,8 @@ export default function Score({ correctAnswers, dataAnswers }: props) {
   const [username,setUsername] = React.useState<string>("");
   const [isAcceptableUsername,setIsAcceptableUsername ] = React.useState<boolean>(true);
   const [helperText,setHelperText] = React.useState<string>("");
+  const [hasSumbitted, setHasSubmitted] = React.useState<boolean>(false);
+
   let score = 0;
   let time = 0;
 
@@ -32,6 +34,7 @@ export default function Score({ correctAnswers, dataAnswers }: props) {
       return
     }
     const sendData = {username,score,time}
+    setHasSubmitted(true)
     fetch('http://localhost:9000/scores', {
                 method: 'POST',
                 headers: {
@@ -64,6 +67,7 @@ export default function Score({ correctAnswers, dataAnswers }: props) {
           {Math.round(percentage(correctAns, totalQuestions))}% Pass
         </Alert>
         <Scoreboard />
+        {!hasSumbitted &&<>
         <FormLabel component="legend">Would you like to submit your score?</FormLabel>
         <TextField
           id="username"
@@ -78,6 +82,7 @@ export default function Score({ correctAnswers, dataAnswers }: props) {
             onClick={handleSubmit}
             variant="outlined"
           >Submit</Button>
+          </>}
       </>
     );
   } else {
@@ -89,6 +94,7 @@ export default function Score({ correctAnswers, dataAnswers }: props) {
           Time
         </Alert>
         <Scoreboard />
+        {!hasSumbitted && <>
         <FormLabel component="legend">Would you like to submit your score?</FormLabel>
         <TextField
           id="username"
@@ -103,6 +109,7 @@ export default function Score({ correctAnswers, dataAnswers }: props) {
             onClick={handleSubmit}
             variant="outlined"
           >Submit</Button>
+        </>}
       </>
     );
   }
