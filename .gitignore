@@ -1,2 +1,5 @@
+node_modules
+./client/node_modules/
+./client/package-lock.json
 api/node_modules/
 api/package-lock.json
