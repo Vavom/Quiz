@@ -16,5 +16,5 @@ export default function App() {
     </Button>
   );
   const quiz = <Quiz />;
-  return startTest ? button : quiz;
+  return !startTest ? button : quiz;
 }

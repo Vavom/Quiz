@@ -2,6 +2,7 @@ import { Alert } from "@mui/material";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import Questions from "./Questions";
+import Score from "./Score";
 
 export type data = {
   questions: Array<{
@@ -12,6 +13,7 @@ export type data = {
       answer: string;
     }>;
   }>;
+  correct_answers: any;
 };
 
 export default function Quiz() {
@@ -50,7 +52,12 @@ export default function Quiz() {
         />
       );
     } else {
-      return <Alert severity="info">Show Scoreboard</Alert>;
+      return (
+        <Score
+          correctAnswers={correctAnswers}
+          dataAnswers={data.correct_answers}
+        />
+      );
     }
   } else {
     return <Alert severity="error">No question data!!</Alert>;
