@@ -18,18 +18,29 @@ type question = {
   }>;
 };
 
-type props = { questionData: question };
+type props = {
+  questionData: question;
+  correctAnswers: Array<string | null>;
+  counter: number;
+};
 
-export default function Questions({ questionData }: props) {
+export default function Questions({
+  questionData,
+  correctAnswers,
+  counter,
+}: props) {
   const [value, setValue] = React.useState("");
   const [error, setError] = React.useState(false);
   const [helperText, setHelperText] = React.useState("Choose wisely");
 
   const handleRadioChange = (event: any) => {
     setValue(event.target.value);
-    setHelperText(" ");
-    setError(false);
+    correctAnswers[counter] = event.target.value ?? null;
   };
+
+  React.useEffect(() => {
+    correctAnswers[counter] = value;
+  }, [value]);
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
@@ -45,7 +56,7 @@ export default function Questions({ questionData }: props) {
       setError(true);
     }
   };
-  console.log(questionData.answers);
+  console.log(correctAnswers);
 
   return (
     <form id={questionData.id} onSubmit={handleSubmit}>

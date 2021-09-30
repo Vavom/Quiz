@@ -14,11 +14,27 @@ import { data } from "./Quiz";
 
 type props = {
   dataQuestions: data;
+  counter: number;
+  setCounter: React.Dispatch<React.SetStateAction<number>>;
+  isLastQuestion: boolean;
+  correctAnswers: Array<string | null>;
 };
 
-export default function Questions({ dataQuestions }: props) {
-  const [counter, setCounter] = React.useState(0);
-  const question = <Question questionData={dataQuestions.questions[counter]} />;
+export default function Questions({
+  dataQuestions,
+  counter,
+  setCounter,
+  isLastQuestion,
+  correctAnswers,
+}: props) {
+  correctAnswers[counter] = null;
+  const question = (
+    <Question
+      questionData={dataQuestions.questions[counter]}
+      correctAnswers={correctAnswers}
+      counter={counter}
+    />
+  );
   return (
     <>
       {question}
@@ -29,7 +45,7 @@ export default function Questions({ dataQuestions }: props) {
         }}
         variant="outlined"
       >
-        Next Question
+        {isLastQuestion ? "Finish" : "Next Question"}
       </Button>
     </>
   );

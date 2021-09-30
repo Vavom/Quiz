@@ -16,7 +16,9 @@ export type data = {
 
 export default function Quiz() {
   const [data, setData] = React.useState<data | null>(null);
-
+  const [counter, setCounter] = React.useState(0);
+  const [isLastQuestion, setIsLastQuestion] = React.useState(false);
+  const [correctAnswers] = React.useState<Array<string | null>>([]);
   React.useEffect(() => {
     const getData = async () => {
       const res = await fetch(
@@ -28,8 +30,28 @@ export default function Quiz() {
     getData();
   }, []);
 
+  React.useEffect(() => {
+    if (data != null) {
+      if (counter == data.questions.length - 1) {
+        setIsLastQuestion(true);
+      }
+    }
+  }, [counter]);
+
   if (data != null) {
-    return <Questions dataQuestions={data} />;
+    if (counter < data.questions.length) {
+      return (
+        <Questions
+          dataQuestions={data}
+          counter={counter}
+          setCounter={setCounter}
+          isLastQuestion={isLastQuestion}
+          correctAnswers={correctAnswers}
+        />
+      );
+    } else {
+      return <Alert severity="info">Show Scoreboard</Alert>;
+    }
   } else {
     return <Alert severity="error">No question data!!</Alert>;
   }
