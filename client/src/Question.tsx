@@ -24,14 +24,12 @@ type props = {
   counter: number;
 };
 
-export default function Questions({
+export default function Question({
   questionData,
   correctAnswers,
   counter,
 }: props) {
   const [value, setValue] = React.useState(correctAnswers[counter]);
-  const [error, setError] = React.useState(false);
-  const [helperText, setHelperText] = React.useState("Choose wisely");
 
   const handleRadioChange = (event: any) => {
     setValue(event.target.value);
@@ -42,50 +40,28 @@ export default function Questions({
     setValue(correctAnswers[counter]);
   });
 
-  const handleSubmit = (event: any) => {
-    event.preventDefault();
-
-    if (value === "best") {
-      setHelperText("You got it!");
-      setError(false);
-    } else if (value === "worst") {
-      setHelperText("Sorry, wrong answer!");
-      setError(true);
-    } else {
-      setHelperText("Please select an option.");
-      setError(true);
-    }
-  };
   console.log(correctAnswers);
 
   return (
-    <form id={questionData.id} onSubmit={handleSubmit}>
-      <FormControl
-        sx={{ m: 3 }}
-        component="fieldset"
-        error={error}
-        variant="standard"
+    <>
+      <FormLabel component="legend">{questionData.question}</FormLabel>
+      <RadioGroup
+        aria-label="quiz"
+        name="quiz"
+        value={value}
+        onChange={handleRadioChange}
       >
-        <FormLabel component="legend">{questionData.question}</FormLabel>
-        <RadioGroup
-          aria-label="quiz"
-          name="quiz"
-          value={value}
-          onChange={handleRadioChange}
-        >
-          {questionData.answers.map((answer) => {
-            return (
-              <FormControlLabel
-                value={answer.id}
-                key={answer.id}
-                control={<Radio />}
-                label={answer.answer}
-              />
-            );
-          })}
-        </RadioGroup>
-        <FormHelperText>{helperText}</FormHelperText>
-      </FormControl>
-    </form>
+        {questionData.answers.map((answer) => {
+          return (
+            <FormControlLabel
+              value={answer.id}
+              key={answer.id}
+              control={<Radio />}
+              label={answer.answer}
+            />
+          );
+        })}
+      </RadioGroup>
+    </>
   );
 }

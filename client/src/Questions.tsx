@@ -30,25 +30,25 @@ export default function Questions({
   if (correctAnswers[counter] == null) {
     correctAnswers[counter] = null;
   }
-  const question = (
-    <Question
-      questionData={dataQuestions.questions[counter]}
-      correctAnswers={correctAnswers}
-      counter={counter}
-    />
-  );
+
   return (
     <>
-      {question}
-      <Button
-        sx={{ mt: 1, mr: 1 }}
-        onClick={() => {
-          setCounter(counter - 1);
-        }}
-        variant="outlined"
-      >
-        Previous Question
-      </Button>
+      <Question
+        questionData={dataQuestions.questions[counter]}
+        correctAnswers={correctAnswers}
+        counter={counter}
+      />
+      {counter > 0 ? (
+        <Button
+          sx={{ mt: 1, mr: 1 }}
+          onClick={() => {
+            setCounter(counter - 1);
+          }}
+          variant="outlined"
+        >
+          Previous Question
+        </Button>
+      ) : null}
       <Button
         sx={{ mt: 1, mr: 1 }}
         onClick={() => {
