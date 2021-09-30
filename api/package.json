@@ -1,0 +1,21 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "models.js",
+  "scripts": {
+    "test": "./node_modules/.bin/jest",
+    "start": "node startServer.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "sequelize": "^6.6.5",
+    "sqlite3": "^4.2.0",
+    "supertest": "^6.1.6"
+  },
+  "devDependencies": {
+    "jest": "^27.2.4"
+  }
+}
