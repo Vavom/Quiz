@@ -27,7 +27,9 @@ export default function Questions({
   isLastQuestion,
   correctAnswers,
 }: props) {
-  correctAnswers[counter] = null;
+  if (correctAnswers[counter] == null) {
+    correctAnswers[counter] = null;
+  }
   const question = (
     <Question
       questionData={dataQuestions.questions[counter]}
@@ -38,6 +40,15 @@ export default function Questions({
   return (
     <>
       {question}
+      <Button
+        sx={{ mt: 1, mr: 1 }}
+        onClick={() => {
+          setCounter(counter - 1);
+        }}
+        variant="outlined"
+      >
+        Previous Question
+      </Button>
       <Button
         sx={{ mt: 1, mr: 1 }}
         onClick={() => {

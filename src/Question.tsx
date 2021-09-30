@@ -29,7 +29,7 @@ export default function Questions({
   correctAnswers,
   counter,
 }: props) {
-  const [value, setValue] = React.useState("");
+  const [value, setValue] = React.useState(correctAnswers[counter]);
   const [error, setError] = React.useState(false);
   const [helperText, setHelperText] = React.useState("Choose wisely");
 
@@ -39,8 +39,8 @@ export default function Questions({
   };
 
   React.useEffect(() => {
-    correctAnswers[counter] = value;
-  }, [value]);
+    setValue(correctAnswers[counter]);
+  });
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
