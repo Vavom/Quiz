@@ -1,10 +1,21 @@
+import { Alert } from "@mui/material";
 import * as React from "react";
 import ReactDOM from "react-dom";
-import Question from "./Question";
+import Questions from "./Questions";
+
+export type data = {
+  questions: Array<{
+    id: string;
+    question: string;
+    answers: Array<{
+      id: string;
+      answer: string;
+    }>;
+  }>;
+};
 
 export default function Quiz() {
-  const [data, setData] = React.useState(null);
-  let counter = 0;
+  const [data, setData] = React.useState<data | null>(null);
 
   React.useEffect(() => {
     const getData = async () => {
@@ -17,6 +28,9 @@ export default function Quiz() {
     getData();
   }, []);
 
-  console.log(data);
-  return <Question counter={counter} />;
+  if (data != null) {
+    return <Questions dataQuestions={data} />;
+  } else {
+    return <Alert severity="error">No question data!!</Alert>;
+  }
 }

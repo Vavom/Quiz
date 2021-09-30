@@ -8,13 +8,19 @@ import {
   RadioGroup,
 } from "@mui/material";
 import * as React from "react";
-import ReactDOM from "react-dom";
 
-type props = {
-  counter: number;
+type question = {
+  id: string;
+  question: string;
+  answers: Array<{
+    id: string;
+    answer: string;
+  }>;
 };
 
-export default function Question({ counter }: props) {
+type props = { questionData: question };
+
+export default function Questions({ questionData }: props) {
   const [value, setValue] = React.useState("");
   const [error, setError] = React.useState(false);
   const [helperText, setHelperText] = React.useState("Choose wisely");
@@ -39,37 +45,35 @@ export default function Question({ counter }: props) {
       setError(true);
     }
   };
+  console.log(questionData.answers);
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form id={questionData.id} onSubmit={handleSubmit}>
       <FormControl
         sx={{ m: 3 }}
         component="fieldset"
         error={error}
         variant="standard"
       >
-        <FormLabel component="legend">Pop quiz: MUI is...</FormLabel>
+        <FormLabel component="legend">{questionData.question}</FormLabel>
         <RadioGroup
           aria-label="quiz"
           name="quiz"
           value={value}
           onChange={handleRadioChange}
         >
-          <FormControlLabel
-            value="best"
-            control={<Radio />}
-            label="The best!"
-          />
-          <FormControlLabel
-            value="worst"
-            control={<Radio />}
-            label="The worst."
-          />
+          {questionData.answers.map((answer) => {
+            return (
+              <FormControlLabel
+                value={answer.id}
+                key={answer.id}
+                control={<Radio />}
+                label={answer.answer}
+              />
+            );
+          })}
         </RadioGroup>
         <FormHelperText>{helperText}</FormHelperText>
-        <Button sx={{ mt: 1, mr: 1 }} type="submit" variant="outlined">
-          Check Answer
-        </Button>
       </FormControl>
     </form>
   );
