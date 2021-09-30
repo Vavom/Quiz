@@ -20,14 +20,15 @@ type row = {
 export type rows = Array<row>;
 
 export default function Scoreboard({}: props) {
-  let rows: rows = [{ username: "test", score: 0, time: 0 }];
-  React.useEffect(() => {
-    const getData = async () => {
-      const res = await fetch("/scores");
-      rows = await res.json();
+  const [rows, setRows] = React.useState<Array<row>>([]);
+  const getData = async () => {
+      fetch("http://localhost:9000/scores")
+      .then(res => res.json())
+      .then(res => {
+        setRows(res.scores)
+      })
     };
-    getData();
-  }, []);
+  getData();
 
   const millitotime = (millis: number) => {
     let minutes = Math.floor(millis / 60000);
