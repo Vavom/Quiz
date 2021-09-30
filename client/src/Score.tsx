@@ -1,4 +1,5 @@
 import { Alert } from "@mui/material";
+import Scoreboard from "./Scoreboard";
 
 type props = {
   correctAnswers: Array<string | null>;
@@ -15,8 +16,11 @@ export default function Score({ correctAnswers, dataAnswers }: props) {
   }
 
   return (
-    <Alert severity="error">
-      {score} / {correctAnswers.length}
-    </Alert>
+    <>
+      <Alert severity="error">
+        {score} / {correctAnswers.length}
+      </Alert>
+      <Scoreboard />
+    </>
   );
 }
