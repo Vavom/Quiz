@@ -13,7 +13,7 @@ import {
   Box,
   Stack,
   Container,
-  Typography
+  Typography,
 } from "@mui/material";
 import * as React from "react";
 import ReactDOM from "react-dom";
@@ -36,48 +36,115 @@ export default function Questions({
   isLastQuestion,
   correctAnswers,
 }: props) {
-  const [isComplete, setIscomplete] = React.useState(false)
+  const [isComplete, setIscomplete] = React.useState(false);
   if (correctAnswers[counter] == null) {
     correctAnswers[counter] = null;
   }
 
   return (
-    <Container sx={{ height: "100vh", minWidth: "100%", bgcolor: 'primary.main', alignItems: "center", display: "flex", justifyContent: "center"}}>
-      <Card sx={{borderRadius: '16px', boxShadow: "5px 10px #53656f", display: "flex", p: 1, alignItems: "center", flexDirection: "column", maxWidth: "40%", maxHeight: "50%"}}>
-        <Box sx={{ justifyContent: "center" }}>
-          <Question
-            questionData={dataQuestions.questions[counter]}
-            correctAnswers={correctAnswers}
-            counter={counter}
-          />
-        </Box>
-        <Box sx={{ mt: 1, mr: 1, display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
-        <Typography variant="button">
-          {counter > 0 ? (
-            <Button
-              sx={{ mt: 1, mr: 1, bgcolor: 'secondary.main'}}
-              onClick={() => {
-                setCounter(counter - 1);
-              }}
-              variant="contained"
-            >
-              Previous Question
-            </Button>
-          ) : null}
-          <Timer/>
-          <Button
-            sx={{ mt: 1, mr: 1, bgcolor: 'secondary.main'}}
-            onClick={() => {
-              setCounter(counter + 1);
+    <Container
+      sx={{ height: "100vh", minWidth: "100%", bgcolor: "primary.main" }}
+    >
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <Card
+          sx={{
+            maxWidth: "37%",
+            borderRadius: "16px",
+            left: "32%",
+            top: "25%",
+            right: "32%",
+            bottom: "37%",
+            position: "absolute",
+            p: 1,
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+          }}
+        >
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "center",
             }}
-            variant="contained"
           >
-            {isLastQuestion ? "Finish" : "Next Question"}
-          </Button>
-            
-        </Typography> 
-        </Box>
-      </Card>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-around",
+              }}
+            >
+              <Box sx={{}}>
+                <Question
+                  questionData={dataQuestions.questions[counter]}
+                  correctAnswers={correctAnswers}
+                  counter={counter}
+                />
+              </Box>
+            </Box>
+          </Box>
+        </Card>
+        <Card
+          sx={{
+            maxWidth: "37%",
+            borderRadius: "16px",
+            p: 1,
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "center",
+            marginTop: "20px",
+          }}
+        >
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "center",
+            }}
+          >
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-around",
+              }}
+            >
+              <Box>
+                <Typography variant="button">
+                  {counter > 0 ? (
+                    <Button
+                      sx={{ mt: 1, mr: 1, bgcolor: "secondary.main" }}
+                      onClick={() => {
+                        setCounter(counter - 1);
+                      }}
+                      variant="contained"
+                    >
+                      Previous Question
+                    </Button>
+                  ) : null}
+                  <Timer />
+                  <Button
+                    sx={{ mt: 1, mr: 1, bgcolor: "secondary.main" }}
+                    onClick={() => {
+                      setCounter(counter + 1);
+                    }}
+                    variant="contained"
+                  >
+                    {isLastQuestion ? "Finish" : "Next Question"}
+                  </Button>
+                </Typography>
+              </Box>
+            </Box>
+          </Box>
+        </Card>
+      </Box>
     </Container>
   );
 }

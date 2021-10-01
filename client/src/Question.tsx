@@ -7,6 +7,7 @@ import {
   Radio,
   RadioGroup,
   Box,
+  Divider,
 } from "@mui/material";
 import * as React from "react";
 
@@ -45,25 +46,31 @@ export default function Questions({
 
   return (
     <>
-      <FormLabel id = "cy-question" component="legend">{questionData.question}</FormLabel>
+      <FormLabel id="cy-question" component="legend">
+        {questionData.question}
+      </FormLabel>
+      <Divider
+        variant="middle"
+        sx={{ marginTop: "10px", marginBottom: "10px" }}
+      />
       <RadioGroup
         aria-label="quiz"
-        id = "cy-ans"
+        id="cy-ans"
         name="quiz"
         value={value}
         onChange={handleRadioChange}
       >
-          {questionData.answers.map((answer) => {
-            return (
-              <FormControlLabel
-                value={answer.id}
-                key={answer.id}
-                control={<Radio />}
-                label={answer.answer}
-              />
-            );
-          })}
-        </RadioGroup>
-      </>
+        {questionData.answers.map((answer) => {
+          return (
+            <FormControlLabel
+              value={answer.id}
+              key={answer.id}
+              control={<Radio />}
+              label={answer.answer}
+            />
+          );
+        })}
+      </RadioGroup>
+    </>
   );
 }
