@@ -68,7 +68,7 @@ export default function Scoreboard({
     }
     const sendData = { username, score, time };
     setHasSubmitted(true);
-    fetch("http://localhost:9000/scores", {
+    fetch("/scores", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -78,7 +78,7 @@ export default function Scoreboard({
   };
 
   React.useEffect(() => {
-    fetch("http://localhost:9000/scores")
+    fetch("/scores")
       .then((res) => res.json())
       .then((res) => {
         res.scores.forEach((score: row) => {

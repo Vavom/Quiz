@@ -14,7 +14,6 @@ app.use(function(req,res,next) {
     next();
 })
 
-
 // GET localhost:9000/scores
 // returns object with sorted list of highscores.
 //
