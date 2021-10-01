@@ -4,7 +4,8 @@ const path = require('path')
 const connectionSettings = {
     test: {dialect: 'sqlite', storage: ':memory:',logging: false},
     dev: {dialect: 'sqlite', storage: path.join(__dirname, 'data.db')},
-    production: {dialect: 'postgres', protocal: 'postgres'},
+    production: {dialect: 'postgres', protocal: 'postgres',dialectOptions: {
+    ssl: {rejectUnauthorized: false}}},
 }
 const sequelize = process.env.NODE_ENV === 'production'
     ? new Sequelize(process.env.DATABASE_URL, connectionSettings[process.env.NODE_ENV])
