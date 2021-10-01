@@ -22,6 +22,8 @@ export default function Quiz() {
   const [isLastQuestion, setIsLastQuestion] = React.useState(false);
   const [correctAnswers] = React.useState<Array<string | null>>([]);
   const [loadingFailed, setLoadingFailed] = React.useState(false);
+  const [startTime,setStartTime] = React.useState(Date.now())
+  const [completionTime, setCompletionTime] = React.useState(999999999999999999)
 
   React.useEffect(() => {
     const getData = async () => {
@@ -40,12 +42,21 @@ export default function Quiz() {
       if (counter == data.questions.length - 1) {
         setIsLastQuestion(true);
       }
+      if(counter == data.questions.length){
+        setCompletionTime(Date.now()-startTime)
+      }
     }
   }, [counter]);
 
+  React.useEffect(()=>{
+    setStartTime(Date.now())
+  },[data])
+
   if (data != null) {
     if (counter < data.questions.length) {
+
       return (
+        <>
         <Questions
           dataQuestions={data}
           counter={counter}
@@ -53,12 +64,14 @@ export default function Quiz() {
           isLastQuestion={isLastQuestion}
           correctAnswers={correctAnswers}
         />
+        </>
       );
     } else {
       return (
         <Score
           correctAnswers={correctAnswers}
           dataAnswers={data.correct_answers}
+          time={completionTime}
         />
       );
     }

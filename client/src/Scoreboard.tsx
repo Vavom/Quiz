@@ -30,11 +30,6 @@ export default function Scoreboard({}: props) {
     };
   getData();
 
-  const millitotime = (millis: number) => {
-    let minutes = Math.floor(millis / 60000);
-    let seconds: number = (millis % 60000) / 1000;
-    return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
-  };
   if (rows !== null) {
     return (
       <Paper sx={{ width: "100%", overflow: "hidden" }}>

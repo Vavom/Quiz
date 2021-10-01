@@ -11,6 +11,7 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import Question from "./Question";
 import { data } from "./Quiz";
+import Timer from "./Timer";
 
 type props = {
   dataQuestions: data;
@@ -27,6 +28,7 @@ export default function Questions({
   isLastQuestion,
   correctAnswers,
 }: props) {
+  const [isComplete, setIscomplete] = React.useState(false)
   if (correctAnswers[counter] == null) {
     correctAnswers[counter] = null;
   }
@@ -52,12 +54,17 @@ export default function Questions({
       <Button
         sx={{ mt: 1, mr: 1 }}
         onClick={() => {
+          if(isLastQuestion){
+            setIscomplete(true)
+          }
           setCounter(counter + 1);
         }}
         variant="outlined"
       >
         {isLastQuestion ? "Finish" : "Next Question"}
       </Button>
+      <Timer
+      />
     </>
   );
 }
