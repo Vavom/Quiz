@@ -42,19 +42,20 @@ export default function Questions({
   }
 
   return (
-    <Container sx={{ height: "100vh", minWidth: "100%", bgcolor: 'primary.main'}}>
-      <Card sx={{boxShadow: "5px 10px #53656f", maxWidth: "37%", borderRadius: '16px', left: '32%', top: "25%", right: "32%", bottom: "37%", position: 'absolute', p: 1}}>
-        <Box>
+    <Container sx={{ height: "100vh", minWidth: "100%", bgcolor: 'primary.main', alignItems: "center", display: "flex", justifyContent: "center"}}>
+      <Card sx={{borderRadius: '16px', boxShadow: "5px 10px #53656f", display: "flex", p: 1, alignItems: "center", flexDirection: "column", maxWidth: "40%", maxHeight: "50%"}}>
+        <Box sx={{ justifyContent: "center" }}>
           <Question
             questionData={dataQuestions.questions[counter]}
             correctAnswers={correctAnswers}
             counter={counter}
           />
         </Box>
+        <Box sx={{ mt: 1, mr: 1, display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
         <Typography variant="button">
           {counter > 0 ? (
             <Button
-              sx={{ mt: 1, mr: 1, position: "absolute", bottom: 5, bgcolor: 'secondary.main' }}
+              sx={{ mt: 1, mr: 1, bgcolor: 'secondary.main'}}
               onClick={() => {
                 setCounter(counter - 1);
               }}
@@ -63,8 +64,9 @@ export default function Questions({
               Previous Question
             </Button>
           ) : null}
+          <Timer/>
           <Button
-            sx={{ mt: 1, mr: 1, position: "absolute", bottom: 5, right : 5, bgcolor: 'secondary.main' }}
+            sx={{ mt: 1, mr: 1, bgcolor: 'secondary.main'}}
             onClick={() => {
               setCounter(counter + 1);
             }}
@@ -72,8 +74,9 @@ export default function Questions({
           >
             {isLastQuestion ? "Finish" : "Next Question"}
           </Button>
-        </Typography>
-        <Timer/>
+            
+        </Typography> 
+        </Box>
       </Card>
     </Container>
   );
