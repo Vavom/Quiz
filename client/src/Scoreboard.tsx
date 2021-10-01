@@ -103,6 +103,16 @@ export default function Scoreboard({
     return (100 * partialValue) / totalValue;
   }
 
+  function getSkipped() {
+    let counter = 0;
+    correctAnswers.map((ans) => {
+      if (ans == null) {
+        counter++;
+      }
+    });
+    return counter;
+  }
+
   if (rows !== null || !loadingFailed) {
     return (
       <Container
@@ -154,6 +164,17 @@ export default function Scoreboard({
               {Math.round(percentage(score, correctAnswers.length)) >= 65
                 ? "Pass"
                 : "Better Luck Next Time"}
+            </Typography>
+            <Typography
+              variant="h4"
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "center",
+                paddingTop: "20px",
+              }}
+            >
+              {"Skipped questions: " + getSkipped()}
             </Typography>
             {!hasSumbitted && (
               <>
