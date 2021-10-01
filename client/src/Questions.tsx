@@ -43,7 +43,7 @@ export default function Questions({
 
   return (
     <Container sx={{ height: "100vh", minWidth: "100%", bgcolor: 'primary.main'}}>
-      <Card sx={{ maxWidth: "37%", borderRadius: '16px', left: '32%', top: "25%", right: "32%", bottom: "37%", position: 'absolute', p: 1}}>
+      <Card sx={{boxShadow: "5px 10px #53656f", maxWidth: "37%", borderRadius: '16px', left: '32%', top: "25%", right: "32%", bottom: "37%", position: 'absolute', p: 1}}>
         <Box>
           <Question
             questionData={dataQuestions.questions[counter]}
@@ -58,7 +58,7 @@ export default function Questions({
               onClick={() => {
                 setCounter(counter - 1);
               }}
-              variant="outlined"
+              variant="contained"
             >
               Previous Question
             </Button>
@@ -68,7 +68,7 @@ export default function Questions({
             onClick={() => {
               setCounter(counter + 1);
             }}
-            variant="outlined"
+            variant="contained"
           >
             {isLastQuestion ? "Finish" : "Next Question"}
           </Button>
