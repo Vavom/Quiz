@@ -45,7 +45,7 @@ app.use(function(req,res,next) {
 app.get('/scores', async (req,res)=>{
     const scores = await Scores.findAll()
     scores.sort((a,b)=>{
-        return b["score"] - a["score"] || b['time'] - a['time']
+        return b["score"] - a["score"] || a['time'] - b['time']
     })
     res.send(JSON.stringify({scores:scores}))
 })

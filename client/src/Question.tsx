@@ -25,12 +25,14 @@ type props = {
   counter: number;
 };
 
-export default function Question({
+export default function Questions({
   questionData,
   correctAnswers,
   counter,
 }: props) {
   const [value, setValue] = React.useState(correctAnswers[counter]);
+  const [error, setError] = React.useState(false);
+  const [helperText, setHelperText] = React.useState("Choose wisely");
 
   const handleRadioChange = (event: any) => {
     setValue(event.target.value);
@@ -41,28 +43,27 @@ export default function Question({
     setValue(correctAnswers[counter]);
   });
 
-  console.log(correctAnswers);
-
   return (
     <>
-      <FormLabel component="legend">{questionData.question}</FormLabel>
+      <FormLabel id = "cy-question" component="legend">{questionData.question}</FormLabel>
       <RadioGroup
         aria-label="quiz"
+        id = "cy-ans"
         name="quiz"
         value={value}
         onChange={handleRadioChange}
       >
-        {questionData.answers.map((answer) => {
-          return (
-            <FormControlLabel
-              value={answer.id}
-              key={answer.id}
-              control={<Radio />}
-              label={answer.answer}
-            />
-          );
-        })}
-      </RadioGroup>
-    </>
+          {questionData.answers.map((answer) => {
+            return (
+              <FormControlLabel
+                value={answer.id}
+                key={answer.id}
+                control={<Radio />}
+                label={answer.answer}
+              />
+            );
+          })}
+        </RadioGroup>
+      </>
   );
 }

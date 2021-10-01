@@ -19,6 +19,7 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import Question from "./Question";
 import { data } from "./Quiz";
+import Timer from "./Timer";
 
 type props = {
   dataQuestions: data;
@@ -35,6 +36,7 @@ export default function Questions({
   isLastQuestion,
   correctAnswers,
 }: props) {
+  const [isComplete, setIscomplete] = React.useState(false)
   if (correctAnswers[counter] == null) {
     correctAnswers[counter] = null;
   }
@@ -71,6 +73,7 @@ export default function Questions({
             {isLastQuestion ? "Finish" : "Next Question"}
           </Button>
         </Typography>
+        <Timer/>
       </Card>
     </Container>
   );

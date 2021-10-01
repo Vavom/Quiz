@@ -5,9 +5,10 @@ import Scoreboard from "./Scoreboard";
 type props = {
   correctAnswers: Array<string | null>;
   dataAnswers: any;
+  time: number;
 };
 
-export default function Score({ correctAnswers, dataAnswers }: props) {
+export default function Score({ correctAnswers, dataAnswers,time }: props) {
   const [username, setUsername] = React.useState<string>("");
   const [isAcceptableUsername, setIsAcceptableUsername] =
     React.useState<boolean>(true);
@@ -16,7 +17,6 @@ export default function Score({ correctAnswers, dataAnswers }: props) {
   const [postFailed, setPostFailed] = React.useState(false);
 
   let score = 0;
-  let time = 0;
 
   for (let i = 0; i < correctAnswers.length; i++) {
     if (correctAnswers[i] === dataAnswers["q" + (i + 1)]) {
@@ -61,7 +61,7 @@ export default function Score({ correctAnswers, dataAnswers }: props) {
     if (percentage(correctAns, totalQuestions) >= passPercentage) {
       return (
         <>
-          <Alert severity="success">
+          <Alert key="cy-alert" severity="success">
             {score} / {correctAnswers.length} Percentage ={" "}
             {Math.round(percentage(correctAns, totalQuestions))}% Pass
           </Alert>
@@ -99,28 +99,29 @@ export default function Score({ correctAnswers, dataAnswers }: props) {
             Next Time
           </Alert>
           <Scoreboard />
-            {!hasSumbitted && (
-              <>
-                <FormLabel component="legend">
-                  Would you like to submit your score?
-                </FormLabel>
-                <TextField
-                  id="username"
-                  label="Name"
-                  value={username}
-                  onChange={handleUsernameChange}
-                  error={!isAcceptableUsername}
-                  helperText={helperText}
-                />
-                <Button
-                  sx={{ mt: 1, mr: 1 }}
-                  onClick={handleSubmit}
-                  variant="outlined"
-                >
-                  Submit
-                </Button>
-              </>
-            )}
+          {!hasSumbitted && (
+            <>
+              <FormLabel component="legend">
+                Would you like to submit your score?
+              </FormLabel>
+              <TextField
+                id="username"
+                label="Name"
+                value={username}
+                onChange={handleUsernameChange}
+                error={!isAcceptableUsername}
+                helperText={helperText}
+              />
+              <Button
+                id="cy-button"
+                sx={{ mt: 1, mr: 1 }}
+                onClick={handleSubmit}
+                variant="outlined"
+              >
+                Submit
+              </Button>
+            </>
+          )}
         </>
       );
     }
