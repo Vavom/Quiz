@@ -27,6 +27,7 @@ type props = {
   setCounter: React.Dispatch<React.SetStateAction<number>>;
   isLastQuestion: boolean;
   correctAnswers: Array<string | null>;
+  handleTimeout: () => void;
 };
 
 export default function Questions({
@@ -35,6 +36,7 @@ export default function Questions({
   setCounter,
   isLastQuestion,
   correctAnswers,
+  handleTimeout
 }: props) {
   const [isComplete, setIscomplete] = React.useState(false);
   if (correctAnswers[counter] == null) {
@@ -129,7 +131,9 @@ export default function Questions({
                       Previous Question
                     </Button>
                   ) : null}
-                  <Timer />
+                  <Timer
+                    handleTimeout = {handleTimeout}
+                  />
                   <Button
                     sx={{ mt: 1, mr: 1, bgcolor: "secondary.main" }}
                     onClick={() => {

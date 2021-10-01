@@ -4,9 +4,12 @@ type timeLeft ={
     minutes: number;
     seconds: number;
 }
+type props ={
+    handleTimeout: () => void;
+}
 
 
-export default function Timer() {
+export default function Timer({handleTimeout}:props) {
 
     const calculateTimeLeft = ():timeLeft => {
         let year = new Date().getFullYear();
@@ -20,6 +23,7 @@ export default function Timer() {
             };
         }else{
             timeLeft = {minutes:0,seconds:0}
+            handleTimeout()
         }
         return timeLeft;
     };

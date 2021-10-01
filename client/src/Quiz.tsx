@@ -48,6 +48,12 @@ export default function Quiz() {
     }
   }, [counter]);
 
+  const handleTimeout = () =>{
+    if(data){
+      setCounter(data.questions.length)
+    }
+  }
+
   React.useEffect(()=>{
     setStartTime(Date.now())
   },[data])
@@ -63,6 +69,7 @@ export default function Quiz() {
           setCounter={setCounter}
           isLastQuestion={isLastQuestion}
           correctAnswers={correctAnswers}
+          handleTimeout = {handleTimeout}
         />
         </>
       );
