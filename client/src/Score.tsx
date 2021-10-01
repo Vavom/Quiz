@@ -5,9 +5,10 @@ import Scoreboard from "./Scoreboard";
 type props = {
   correctAnswers: Array<string | null>;
   dataAnswers: any;
+  time: number;
 };
 
-export default function Score({ correctAnswers, dataAnswers }: props) {
+export default function Score({ correctAnswers, dataAnswers, time }: props) {
   const [username, setUsername] = React.useState<string>("");
   const [isAcceptableUsername, setIsAcceptableUsername] =
     React.useState<boolean>(true);
@@ -16,7 +17,6 @@ export default function Score({ correctAnswers, dataAnswers }: props) {
   const [postFailed, setPostFailed] = React.useState(false);
 
   let score = 0;
-  let time = 0;
 
   for (let i = 0; i < correctAnswers.length; i++) {
     if (correctAnswers[i] === dataAnswers["q" + (i + 1)]) {
@@ -76,6 +76,7 @@ export default function Score({ correctAnswers, dataAnswers }: props) {
               sx={{ mt: 1, mr: 1 }}
               onClick={handleSubmit}
               variant="outlined"
+              id="cy-button"
             >
               Submit
             </Button>

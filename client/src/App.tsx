@@ -6,6 +6,7 @@ import{
   Container,
   Card,
   Box,
+  Typography,
 } from "@mui/material";
 
 export default function App() {
@@ -13,7 +14,7 @@ export default function App() {
   const button = (
     <Container sx={{ height: "100vh", minWidth: "100%", bgcolor: 'primary.main'}}>
       <Card sx={{ maxWidth: "37%", borderRadius: '16px', left: '32%', top: "25%", right: "32%", bottom: "37%", position: 'absolute', p: 1}}>
-        <Box>
+        <Typography>
           Welcome to the Quiz by Quizz
           You will have 40 minutes to answer all the questions
           <Button
@@ -25,7 +26,7 @@ export default function App() {
           >
             Start Test
           </Button>
-        </Box>
+        </Typography>
       </Card>
     </Container>
   );
