@@ -99,28 +99,28 @@ export default function Score({ correctAnswers, dataAnswers }: props) {
             Next Time
           </Alert>
           <Scoreboard />
-          {!hasSumbitted && (
-            <>
-              <FormLabel component="legend">
-                Would you like to submit your score?
-              </FormLabel>
-              <TextField
-                id="username"
-                label="Name"
-                value={username}
-                onChange={handleUsernameChange}
-                error={!isAcceptableUsername}
-                helperText={helperText}
-              />
-              <Button
-                sx={{ mt: 1, mr: 1 }}
-                onClick={handleSubmit}
-                variant="outlined"
-              >
-                Submit
-              </Button>
-            </>
-          )}
+            {!hasSumbitted && (
+              <>
+                <FormLabel component="legend">
+                  Would you like to submit your score?
+                </FormLabel>
+                <TextField
+                  id="username"
+                  label="Name"
+                  value={username}
+                  onChange={handleUsernameChange}
+                  error={!isAcceptableUsername}
+                  helperText={helperText}
+                />
+                <Button
+                  sx={{ mt: 1, mr: 1 }}
+                  onClick={handleSubmit}
+                  variant="outlined"
+                >
+                  Submit
+                </Button>
+              </>
+            )}
         </>
       );
     }
