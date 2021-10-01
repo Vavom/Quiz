@@ -8,7 +8,15 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { TablePagination } from "@mui/material";
 import CustomPaginationActionsTable from "./CustomPaginationActionsTable";
-
+import {
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Container,
+  Box,
+  Typography,
+} from "@mui/material";
 type props = {};
 
 type row = {
@@ -37,9 +45,18 @@ export default function Scoreboard({}: props) {
   };
   if (rows !== null) {
     return (
-      <Paper sx={{ width: "100%", overflow: "hidden" }}>
-        <CustomPaginationActionsTable rows={rows} />
-      </Paper>
+      <Container sx={{ height: "100vh", minWidth: "100%", bgcolor: 'primary.main'}}>
+        <Box sx={{ top: "10%", left: "37%", position: 'absolute'}}>
+          <Typography variant="h1">
+            Highscores!
+          </Typography>
+        </Box>
+        <Card sx={{ maxWidth: "50%", borderRadius: '16px', left: '25%', top: "25%", right: "25%", bottom: "10%", position: 'absolute', p: 1}}>
+          <Paper sx={{ width: "100%", overflow: "hidden" }}>
+            <CustomPaginationActionsTable rows={rows} />
+          </Paper>
+        </Card> 
+      </Container> 
     );
   } else {
     return <div></div>;
