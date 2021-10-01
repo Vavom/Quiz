@@ -161,7 +161,7 @@ describe('General Navigation and content check', () => {
       })
 
       it('checks for leaderboard', () => {
-        cy.get('#cy-highscore')
+        cy.get('table')
       })
 
       it('able to input highscore using form', () => {
