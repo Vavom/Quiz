@@ -138,7 +138,7 @@ export default function CustomPaginationActionsTable({ rows }: props) {
             ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             : rows
           ).map((row) => (
-            <TableRow key={row.username}>
+            <TableRow key={rows.indexOf(row)}>
               <TableCell component="th" scope="row">
                 {row.username}
               </TableCell>

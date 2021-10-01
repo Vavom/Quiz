@@ -40,11 +40,6 @@ export default function Scoreboard({}: props) {
   };
   getData();
 
-  const millitotime = (millis: number) => {
-    let minutes = Math.floor(millis / 60000);
-    let seconds: number = (millis % 60000) / 1000;
-    return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
-  };
   if (rows !== null || !loadingFailed) {
     return (
       <Container sx={{ height: "100vh", minWidth: "100%", bgcolor: 'primary.main'}}>
@@ -57,8 +52,8 @@ export default function Scoreboard({}: props) {
           <Paper sx={{ width: "100%", overflow: "hidden" }}>
             <CustomPaginationActionsTable rows={rows} />
           </Paper>
-        </Card> 
-      </Container> 
+        </Card>
+      </Container>
     );
   } else {
     return <Alert severity="error">No results data!</Alert>;
