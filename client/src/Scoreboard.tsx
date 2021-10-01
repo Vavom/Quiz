@@ -53,7 +53,7 @@ export default function Scoreboard({}: props) {
             Highscores!
           </Typography>
         </Box>
-        <Card sx={{ maxWidth: "50%", borderRadius: '16px', left: '25%', top: "25%", right: "25%", bottom: "10%", position: 'absolute', p: 1}}>
+        <Card id="cy-highscore" sx={{ maxWidth: "50%", borderRadius: '16px', left: '25%', top: "25%", right: "25%", bottom: "10%", position: 'absolute', p: 1}}>
           <Paper sx={{ width: "100%", overflow: "hidden" }}>
             <CustomPaginationActionsTable rows={rows} />
           </Paper>
