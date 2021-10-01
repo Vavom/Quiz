@@ -21,13 +21,16 @@ export default function Quiz() {
   const [counter, setCounter] = React.useState(0);
   const [isLastQuestion, setIsLastQuestion] = React.useState(false);
   const [correctAnswers] = React.useState<Array<string | null>>([]);
+  const [loadingFailed, setLoadingFailed] = React.useState(false);
+
   React.useEffect(() => {
     const getData = async () => {
-      const res = await fetch(
+      fetch(
         "https://multiverselearningproducts.github.io/swe/BCS-sample-questions.json"
-      );
-      const data = await res.json();
-      setData(data);
+      )
+      .then(res => res.json())
+      .then(data => setData(data))
+      .catch(err => setLoadingFailed(true))
     };
     getData();
   }, []);
@@ -59,7 +62,10 @@ export default function Quiz() {
         />
       );
     }
-  } else {
+  } else if(loadingFailed) {
     return <Alert severity="error">No question data!!</Alert>;
+  }
+  else {
+    return <div>loading...</div>
   }
 }
