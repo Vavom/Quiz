@@ -24,13 +24,13 @@ export default function Quiz() {
   const [loadingFailed, setLoadingFailed] = React.useState(false);
 
   React.useEffect(() => {
-    const getData = async () => {
+    const getData = () => {
       fetch(
         "https://multiverselearningproducts.github.io/swe/BCS-sample-questions.json"
       )
-      .then(res => res.json())
-      .then(data => setData(data))
-      .catch(err => setLoadingFailed(true))
+        .then((res) => res.json())
+        .then((data) => setData(data))
+        .catch((err) => setLoadingFailed(true));
     };
     getData();
   }, []);
@@ -62,10 +62,9 @@ export default function Quiz() {
         />
       );
     }
-  } else if(loadingFailed) {
+  } else if (loadingFailed) {
     return <Alert severity="error">No question data!!</Alert>;
-  }
-  else {
-    return <div>loading...</div>
+  } else {
+    return <div>loading...</div>;
   }
 }

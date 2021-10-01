@@ -15,6 +15,7 @@ import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import LastPageIcon from "@mui/icons-material/LastPage";
 import { rows } from "./Scoreboard";
+import { TableHead } from "@mui/material";
 
 interface TablePaginationActionsProps {
   count: number;
@@ -125,6 +126,13 @@ export default function CustomPaginationActionsTable({ rows }: props) {
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
+        <TableHead>
+          <TableRow>
+            <TableCell>Name</TableCell>
+            <TableCell align="right">Score</TableCell>
+            <TableCell align="right">TIme</TableCell>
+          </TableRow>
+        </TableHead>
         <TableBody>
           {(rowsPerPage > 0
             ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
