@@ -17,28 +17,41 @@ import {
   Box,
   Typography,
 } from "@mui/material";
-type props = {};
+type props = {
+  hasSumbitted: boolean
+};
 
 type row = {
   username: string;
   score: number;
-  time: number;
+  time: string;
 };
 
 export type rows = Array<row>;
 
-export default function Scoreboard({}: props) {
+export default function Scoreboard({hasSumbitted}: props) {
   const [rows, setRows] = React.useState<Array<row>>([]);
   const [loadingFailed, setLoadingFailed] = React.useState(false);
-  const getData = async () => {
+
+  React.useEffect(()=>{
     fetch("http://localhost:9000/scores")
       .then((res) => res.json())
       .then((res) => {
+        res.scores.forEach((score: row) => {
+          score.time = millitotime(score.time)
+        })
         setRows(res.scores);
       })
       .catch((err) => setLoadingFailed(true));
+  },[hasSumbitted])
+
+  const millitotime = (millis: string) => {
+    console.log(millis)
+    let minutes = Math.floor(Number(millis) / 60000);
+    let seconds: number = Math.floor((Number(millis) % 60000) / 1000);
+    let miliseconds: number = (Number(millis) % 1000)
+    return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}.${miliseconds < 10 ? "0" : ""}${miliseconds < 100 ? "0" : ""}${miliseconds}`;
   };
-  getData();
 
   if (rows !== null || !loadingFailed) {
     return (
