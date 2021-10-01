@@ -178,7 +178,7 @@ export default function Scoreboard({
                     alignSelf: "center",
                   }}
                   onClick={handleSubmit}
-                  variant="outlined"
+                  variant="contained"
                   id="cy-button"
                 >
                   Submit
