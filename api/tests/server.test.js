@@ -76,6 +76,6 @@ describe("tessting the API ", () => {
         }
         const getResponse = await request(app).get("/scores");
         const scoresArr = JSON.parse(getResponse.text).scores
-        expect(scoresArr[scoresArr.length -1].time).toEqual(900);
+        expect(scoresArr[0].time).toEqual(900);
     })
 });
