@@ -65,7 +65,9 @@ export default function Score({ correctAnswers, dataAnswers,time }: props) {
             {score} / {correctAnswers.length} Percentage ={" "}
             {Math.round(percentage(correctAns, totalQuestions))}% Pass
           </Alert>
-          <Scoreboard />
+          <Scoreboard
+            hasSumbitted={hasSumbitted}
+          />
           {!hasSumbitted && (
             <>
               <FormLabel component="legend">
@@ -98,7 +100,9 @@ export default function Score({ correctAnswers, dataAnswers,time }: props) {
             {Math.round(percentage(correctAns, totalQuestions))}% Better Luck
             Next Time
           </Alert>
-          <Scoreboard />
+          <Scoreboard
+            hasSumbitted={hasSumbitted}
+          />
           {!hasSumbitted && (
             <>
               <FormLabel component="legend">
