@@ -12,6 +12,7 @@ import {
   CardMedia,
   Box,
   Stack,
+  Container,
 } from "@mui/material";
 import * as React from "react";
 import ReactDOM from "react-dom";
@@ -38,36 +39,38 @@ export default function Questions({
   }
 
   return (
-    <Card sx={{ maxWidth: "37%", borderRadius: '16px', left: '32%', top: "20%", right: "32%", bottom: "20%", position: 'absolute', p: 1}}>
-      <Box>
-        <Question
-          questionData={dataQuestions.questions[counter]}
-          correctAnswers={correctAnswers}
-          counter={counter}
-        />
-      </Box>
-      <Box>
-        {counter > 0 ? (
+    <Container sx={{ height: "100vh", minWidth: "100%", bgcolor: 'primary.main'}}>
+      <Card sx={{ maxWidth: "37%", borderRadius: '16px', left: '32%', top: "25%", right: "32%", bottom: "37%", position: 'absolute', p: 1}}>
+        <Box>
+          <Question
+            questionData={dataQuestions.questions[counter]}
+            correctAnswers={correctAnswers}
+            counter={counter}
+          />
+        </Box>
+        <Box>
+          {counter > 0 ? (
+            <Button
+              sx={{ mt: 1, mr: 1, position: "absolute", bottom: 5, bgcolor: 'secondary.main' }}
+              onClick={() => {
+                setCounter(counter - 1);
+              }}
+              variant="outlined"
+            >
+              Previous Question
+            </Button>
+          ) : null}
           <Button
-            sx={{ mt: 1, mr: 1, position: "absolute", bottom: 5,  }}
+            sx={{ mt: 1, mr: 1, position: "absolute", bottom: 5, right : 5, bgcolor: 'secondary.main' }}
             onClick={() => {
-              setCounter(counter - 1);
+              setCounter(counter + 1);
             }}
             variant="outlined"
           >
-            Previous Question
+            {isLastQuestion ? "Finish" : "Next Question"}
           </Button>
-        ) : null}
-        <Button
-          sx={{ mt: 1, mr: 1, position: "absolute", bottom: 5, right : 5}}
-          onClick={() => {
-            setCounter(counter + 1);
-          }}
-          variant="outlined"
-        >
-          {isLastQuestion ? "Finish" : "Next Question"}
-        </Button>
-      </Box>
-    </Card>
+        </Box>
+      </Card>
+    </Container>
   );
 }
