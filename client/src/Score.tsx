@@ -55,76 +55,67 @@ export default function Score({ correctAnswers, dataAnswers }: props) {
   const correctAns = score;
   const passPercentage = 65;
 
-  console.log(percentage(correctAns, totalQuestions));
+  const submitScore = () => {
+    return (
+      <>
+        <Scoreboard score={score} />;
+        {!hasSumbitted && (
+          <>
+            <FormLabel component="legend">
+              Would you like to submit your score?
+            </FormLabel>
+            <TextField
+              id="username"
+              label="Name"
+              value={username}
+              onChange={handleUsernameChange}
+              error={!isAcceptableUsername}
+              helperText={helperText}
+            />
+            <Button
+              sx={{ mt: 1, mr: 1 }}
+              onClick={handleSubmit}
+              variant="outlined"
+            >
+              Submit
+            </Button>
+          </>
+        )}
+      </>
+    );
+  };
 
-  if (!postFailed) {
-    if (percentage(correctAns, totalQuestions) >= passPercentage) {
-      return (
-        <>
-          <Alert severity="success">
-            {score} / {correctAnswers.length} Percentage ={" "}
-            {Math.round(percentage(correctAns, totalQuestions))}% Pass
-          </Alert>
-          <Scoreboard />
-          {!hasSumbitted && (
-            <>
-              <FormLabel component="legend">
-                Would you like to submit your score?
-              </FormLabel>
-              <TextField
-                id="username"
-                label="Name"
-                value={username}
-                onChange={handleUsernameChange}
-                error={!isAcceptableUsername}
-                helperText={helperText}
-              />
-              <Button
-                sx={{ mt: 1, mr: 1 }}
-                onClick={handleSubmit}
-                variant="outlined"
-              >
-                Submit
-              </Button>
-            </>
-          )}
-        </>
-      );
+  console.log(percentage(correctAns, totalQuestions));
+  const alert = () => {
+    if (!postFailed) {
+      if (percentage(correctAns, totalQuestions) >= passPercentage) {
+        return (
+          <>
+            <Alert severity="success">
+              {score} / {correctAnswers.length} Percentage ={" "}
+              {Math.round(percentage(correctAns, totalQuestions))}% Pass
+            </Alert>
+          </>
+        );
+      } else {
+        return (
+          <>
+            <Alert severity="error">
+              {score} / {correctAnswers.length} Percentage ={" "}
+              {Math.round(percentage(correctAns, totalQuestions))}% Better Luck
+              Next Time
+            </Alert>
+          </>
+        );
+      }
     } else {
-      return (
-        <>
-          <Alert severity="error">
-            {score} / {correctAnswers.length} Percentage ={" "}
-            {Math.round(percentage(correctAns, totalQuestions))}% Better Luck
-            Next Time
-          </Alert>
-          <Scoreboard />
-          {!hasSumbitted && (
-            <>
-              <FormLabel component="legend">
-                Would you like to submit your score?
-              </FormLabel>
-              <TextField
-                id="username"
-                label="Name"
-                value={username}
-                onChange={handleUsernameChange}
-                error={!isAcceptableUsername}
-                helperText={helperText}
-              />
-              <Button
-                sx={{ mt: 1, mr: 1 }}
-                onClick={handleSubmit}
-                variant="outlined"
-              >
-                Submit
-              </Button>
-            </>
-          )}
-        </>
-      );
+      return <Alert severity="error">Cannot submit data!!</Alert>;
     }
-  } else {
-    return <Alert severity="error">Cannot submit data!!</Alert>;
-  }
+  };
+  return (
+    <>
+      {alert()}
+      {!postFailed && submitScore()}
+    </>
+  );
 }

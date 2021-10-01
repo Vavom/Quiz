@@ -17,7 +17,10 @@ import {
   Box,
   Typography,
 } from "@mui/material";
-type props = {};
+
+type props = {
+  score: number;
+};
 
 type row = {
   username: string;
@@ -27,7 +30,7 @@ type row = {
 
 export type rows = Array<row>;
 
-export default function Scoreboard({}: props) {
+export default function Scoreboard({ score }: props) {
   const [rows, setRows] = React.useState<Array<row>>([]);
   const [loadingFailed, setLoadingFailed] = React.useState(false);
   const getData = async () => {
@@ -40,25 +43,58 @@ export default function Scoreboard({}: props) {
   };
   getData();
 
-  const millitotime = (millis: number) => {
-    let minutes = Math.floor(millis / 60000);
-    let seconds: number = (millis % 60000) / 1000;
-    return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
-  };
   if (rows !== null || !loadingFailed) {
     return (
-      <Container sx={{ height: "100vh", minWidth: "100%", bgcolor: 'primary.main'}}>
-        <Box sx={{ top: "10%", left: "37%", position: 'absolute'}}>
-          <Typography variant="h1">
-            Highscores!
-          </Typography>
+      <Container
+        sx={{ height: "100vh", minWidth: "100%", bgcolor: "primary.main" }}
+      >
+        <Box
+          sx={{
+            top: "10%",
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "center",
+            paddingTop: "20px",
+          }}
+        >
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+            }}
+          >
+            <Typography variant="h1">Highscores!</Typography>
+            <Typography
+              variant="h4"
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "center",
+                paddingTop: "20px",
+              }}
+            >
+              {"Your current score: " + score}
+            </Typography>
+          </Box>
         </Box>
-        <Card sx={{ maxWidth: "50%", borderRadius: '16px', left: '25%', top: "25%", right: "25%", bottom: "10%", position: 'absolute', p: 1}}>
+        <Card
+          sx={{
+            maxWidth: "50%",
+            borderRadius: "16px",
+            left: "25%",
+            top: "25%",
+            right: "25%",
+            bottom: "10%",
+            position: "absolute",
+            p: 1,
+          }}
+        >
           <Paper sx={{ width: "100%", overflow: "hidden" }}>
             <CustomPaginationActionsTable rows={rows} />
           </Paper>
-        </Card> 
-      </Container> 
+        </Card>
+      </Container>
     );
   } else {
     return <Alert severity="error">No results data!</Alert>;
