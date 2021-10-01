@@ -61,7 +61,7 @@ export default function Score({ correctAnswers, dataAnswers,time }: props) {
     if (percentage(correctAns, totalQuestions) >= passPercentage) {
       return (
         <>
-          <Alert severity="success">
+          <Alert key="cy-alert" severity="success">
             {score} / {correctAnswers.length} Percentage ={" "}
             {Math.round(percentage(correctAns, totalQuestions))}% Pass
           </Alert>
@@ -113,6 +113,7 @@ export default function Score({ correctAnswers, dataAnswers,time }: props) {
                 helperText={helperText}
               />
               <Button
+                id="cy-button"
                 sx={{ mt: 1, mr: 1 }}
                 onClick={handleSubmit}
                 variant="outlined"
