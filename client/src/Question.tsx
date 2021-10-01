@@ -45,9 +45,10 @@ export default function Question({
 
   return (
     <>
-      <FormLabel component="legend">{questionData.question}</FormLabel>
+      <FormLabel id = "cy-question" component="legend">{questionData.question}</FormLabel>
       <RadioGroup
         aria-label="quiz"
+        id = "cy-ans"
         name="quiz"
         value={value}
         onChange={handleRadioChange}
