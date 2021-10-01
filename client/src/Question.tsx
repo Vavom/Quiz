@@ -6,6 +6,7 @@ import {
   FormLabel,
   Radio,
   RadioGroup,
+  Box,
 } from "@mui/material";
 import * as React from "react";
 
@@ -42,37 +43,16 @@ export default function Questions({
     setValue(correctAnswers[counter]);
   });
 
-  const handleSubmit = (event: any) => {
-    event.preventDefault();
-
-    if (value === "best") {
-      setHelperText("You got it!");
-      setError(false);
-    } else if (value === "worst") {
-      setHelperText("Sorry, wrong answer!");
-      setError(true);
-    } else {
-      setHelperText("Please select an option.");
-      setError(true);
-    }
-  };
-
-
   return (
-    <form id={questionData.id} onSubmit={handleSubmit}>
-      <FormControl
-        sx={{ m: 3 }}
-        component="fieldset"
-        error={error}
-        variant="standard"
+    <>
+      <FormLabel id = "cy-question" component="legend">{questionData.question}</FormLabel>
+      <RadioGroup
+        aria-label="quiz"
+        id = "cy-ans"
+        name="quiz"
+        value={value}
+        onChange={handleRadioChange}
       >
-        <FormLabel component="legend">{questionData.question}</FormLabel>
-        <RadioGroup
-          aria-label="quiz"
-          name="quiz"
-          value={value}
-          onChange={handleRadioChange}
-        >
           {questionData.answers.map((answer) => {
             return (
               <FormControlLabel
@@ -84,8 +64,6 @@ export default function Questions({
             );
           })}
         </RadioGroup>
-        <FormHelperText>{helperText}</FormHelperText>
-      </FormControl>
-    </form>
+      </>
   );
 }
