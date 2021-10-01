@@ -35,7 +35,7 @@ type props = {
 type row = {
   username: string;
   score: number;
-  time: number;
+  time: string;
 };
 
 export type rows = Array<row>;
@@ -77,15 +77,27 @@ export default function Scoreboard({
     }).catch((err) => setPostFailed(true));
   };
 
-  const getData = async () => {
+  React.useEffect(() => {
     fetch("http://localhost:9000/scores")
       .then((res) => res.json())
       .then((res) => {
+        res.scores.forEach((score: row) => {
+          score.time = millitotime(score.time);
+        });
         setRows(res.scores);
       })
       .catch((err) => setLoadingFailed(true));
+  }, [hasSumbitted]);
+
+  const millitotime = (millis: string) => {
+    console.log(millis);
+    let minutes = Math.floor(Number(millis) / 60000);
+    let seconds: number = Math.floor((Number(millis) % 60000) / 1000);
+    let miliseconds: number = Number(millis) % 1000;
+    return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}.${
+      miliseconds < 10 ? "0" : ""
+    }${miliseconds < 100 ? "0" : ""}${miliseconds}`;
   };
-  getData();
 
   function percentage(partialValue: number, totalValue: number) {
     return (100 * partialValue) / totalValue;
